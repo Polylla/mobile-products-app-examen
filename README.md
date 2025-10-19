@@ -3,7 +3,7 @@
 Aplicación de e-commerce móvil desarrollada en Flutter que utiliza Firebase como Backend-as-a-Service (BaaS).
 Esta aplicación fue creada como entregable del examen del ramo de Computación Móvil. El README describe
 las funcionalidades implementadas, cómo ejecutar el proyecto localmente, configuración requerida y
-un mapeo entre las características del código y los requisitos típicos de un enunciado de examen.
+un mapeo entre las características del código.
 
 ## Resumen
 
@@ -29,14 +29,12 @@ un mapeo entre las características del código y los requisitos típicos de un 
 
 ## Mapeo al enunciado del examen
 
-Basado en el código disponible, la aplicación cubre los requisitos habituales que se piden en un enunciado de examen de este tipo:
+La aplicación cubre los requisitos pedidos en el enunciado del examen:
 
 - Gestión de usuarios (registro/login/recuperación): implementado (`lib/services/auth_service.dart`).
 - CRUD de entidades del negocio (proveedores implementan create/update/delete). Productos y categorías tienen operaciones de lectura y actualizaciones puntuales.
 - Carrito y proceso de compra simulado: presente en `lib/providers/cart_provider.dart` y páginas de UI correspondientes (`lib/pages/`).
 - Integración con Firebase (Firestore y Auth) y uso de `firebase_options.dart` para configuración por plataforma.
-
-Nota: no pude leer directamente el PDF del enunciado desde la ruta original (fuera del workspace). Si quieres que ajuste el README exactamente a los criterios del enunciado del profesor, por favor pega aquí los requisitos o coloca el PDF dentro del directorio del proyecto y lo leo para adaptar el README al 100%.
 
 ## Requisitos y dependencias
 
@@ -63,75 +61,95 @@ FIREBASE_MESSAGING_SENDER_ID=...
 FIREBASE_PROJECT_ID=...
 ```
 
-Sin embargo, el proyecto también incluye `firebase_options.dart` (generado por FlutterFire). Si usas ese archivo y tus credenciales locales están correctamente configuradas, la app inicializa Firebase automáticamente.
+El proyecto también incluye `firebase_options.dart` (generado por FlutterFire). Si usas ese archivo y tus credenciales locales están correctamente configuradas, la app inicializa Firebase automáticamente.
 
 ## Cómo ejecutar (Windows — PowerShell)
 
 1. Asegúrate de tener Flutter instalado y disponible en tu PATH.
 2. Desde la raíz del proyecto (ej. `mobile-products-app`) instala dependencias:
 
+# Entrega — Examen Computación Móvil
+
+Profesor,
+
+Adjunto mi entregable del examen de Computación Móvil: una aplicación móvil de e-commerce desarrollada en Flutter que utiliza Firebase como backend. A continuación describo, de manera concisa lo que implementé, cómo probarlo y qué puntos revisar para la evaluación.
+
+Resumen rápido
+
+- Tecnologías: Flutter, Firebase (Authentication y Cloud Firestore), Provider.
+- Funcionalidades principales: registro/login/recuperación de usuarios, listado y detalle de productos, listado de categorías, CRUD básico de proveedores, carrito de compras y flujo de finalización de compra (simulado) con página de agradecimiento.
+
+Estado del proyecto (implementado)
+
+- Autenticación: registro, inicio de sesión y recuperación de contraseña — `lib/services/auth_service.dart`.
+- Productos: listado y detalle; actualizaciones puntuales desde servicios — `lib/services/product_service.dart` y `lib/models/product.dart`.
+- Categorías: listado — `lib/services/category_service.dart` y `lib/models/category.dart`.
+- Proveedores: CRUD completo (crear/editar/eliminar/leer) — `lib/services/supplier_service.dart` y `lib/models/supplier.dart`.
+- Carrito: agregar/remover ítems y conteo de ítems — `lib/providers/cart_provider.dart`.
+- Flujo de compra: proceso simulado que termina en `lib/pages/thank_you_page.dart`.
+- Rutas principales definidas en `lib/main.dart` (dashboard, products, categories, suppliers, recover).
+
+Requisitos y dependencias
+
+- Flutter (usar la versión compatible con el SDK declarado en `pubspec.yaml`).
+- Firebase configurado para la(s) plataforma(s) objetivo. El proyecto incluye `firebase_options.dart` generado por FlutterFire para inicializar la app.
+- Variables desde `.env` (opcional si `firebase_options.dart` ya gestiona las credenciales). El proyecto usa `flutter_dotenv` como dependencia opcional.
+
+Dependencias clave (ver `pubspec.yaml`):
+
+- firebase_core
+- firebase_auth
+- cloud_firestore
+- provider
+- flutter_dotenv
+
+Cómo ejecutar (Windows — PowerShell)
+
+1. Desde la raíz del repo, instalar dependencias:
+
 ```powershell
 flutter pub get
 ```
 
-3. Ejecuta la app en un emulador o dispositivo conectado:
+2. Ejecutar la app en un dispositivo o emulador:
 
 ```powershell
 flutter run
 ```
 
-4. Para ejecutar en Windows desktop (si tienes habilitado el soporte):
+3. Ejecutar en Windows desktop (si está habilitado):
 
 ```powershell
 flutter run -d windows
 ```
 
-5. Para compilar un APK (Android):
+4. Generar APK Android:
 
 ```powershell
 flutter build apk --release
 ```
 
-## Comandos útiles para verificación (análisis y tests)
+Comandos útiles para verificación
 
-```powershell
-flutter analyze
-flutter test
-```
+- flutter analyze
+- flutter test
 
-Si alguno de estos comandos falla, comparte la salida y te ayudo a corregir los problemas.
+Archivos y rutas importantes (evidencia de implementación)
 
-## Estructura clave del proyecto
+- `lib/main.dart` — inicialización de Firebase y providers.
+- `lib/pages/` — pantallas: login, register, products, product detail, categories, suppliers, cart, checkout, thank you.
+- `lib/services/` — servicios para Auth, Firestore (productos, categorías, proveedores).
+- `lib/models/` — modelos de datos (product, category, supplier).
+- `lib/providers/` — providers para estado (cart, suppliers, etc.).
 
-- `lib/main.dart` — punto de entrada, inicializa Firebase y providers.
-- `lib/pages/` — pantallas de la app (login, productos, categorías, proveedores, carrito, checkout, etc.).
-- `lib/services/` — servicios que encapsulan llamadas a Firestore y Auth.
-- `lib/models/` — modelos de datos (`product.dart`, `category.dart`, `supplier.dart`).
-- `lib/providers/` — providers para estado (carrito, proveedores, etc.).
+Checklist sugerido para la evaluación
 
-## Qué verificar para la entrega (checklist sugerido)
+- [ ] Verificar que `firebase_options.dart` apunta al proyecto Firebase que use para evaluar.
+- [ ] Registrar un usuario y comprobar login y recuperación de contraseña.
+- [ ] Probar CRUD de proveedores (crear, editar, eliminar).
+- [ ] Añadir productos al carrito y completar el flujo hasta la página de agradecimiento.
 
-- [ ] Confirmar que `firebase_options.dart` corresponde al proyecto Firebase que se evaluará.
-- [ ] Añadir/confirmar el contenido del `.env` si el professor requiere variables específicas.
-- [ ] Probar registro/login y recuperación de contraseña con cuentas de prueba.
-- [ ] Probar CRUD de proveedores: crear, editar y eliminar un proveedor.
-- [ ] Probar que al realizar checkout se muestra la página de agradecimiento.
+Limitaciones y observaciones
 
-## Limitaciones y mejoras sugeridas
-
-- No hay integración de pagos reales — el flujo de compra es simulado; podrías integrar un gateway (Stripe, Flow, etc.) si el enunciado lo pide.
-- Añadir validaciones y mensajes más robustos en la UI para manejo de errores de red o permisos.
-- Agregar tests unitarios/widget para las principales pantallas y servicios. Actualmente existe la plantilla `test/widget_test.dart`.
-
-## Cómo puedo ayudar a afinar el README
-
-Si quieres que adapte el README exactamente al enunciado del profesor, por favor:
-
-1. Coloca el PDF del enunciado dentro del workspace (p. ej. en la raíz del proyecto) o pega aquí los criterios clave.
-2. Indica si hay criterios de evaluación extra (p. ej. entrega en GitHub Pages, video demostración, criterios de diseño).
-
-Una vez tenga el enunciado, actualizaré el README para reflejar los puntos obligatorios y las evidencias requeridas.
-
----
-
-Archivo original reemplazado. Si quieres que también añada una sección de evidencia (screenshots, video link) o tests automatizados, dime y lo implemento.
+- El flujo de pagos es simulado; no se integró un gateway real (p. ej. Stripe). Si el enunciado exige pagos reales, puedo añadirlo.
+- Faltan tests automatizados profundos; sólo existe la plantilla de `test/widget_test.dart`.
