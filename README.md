@@ -1,4 +1,4 @@
-# README — Examen Computación Móvil (Flutter)
+# Examen Computación Móvil
 
 Aplicación móvil desarrollada en **Flutter** que cumple con las funcionalidades solicitadas en el enunciado del examen.
 
@@ -8,6 +8,7 @@ Aplicación móvil desarrollada en **Flutter** que cumple con las funcionalidade
 - **Proveedores:** listar, ver, editar y eliminar.
 - **Categorías:** listar, ver, editar y eliminar.
 - **Productos:** listar, ver, editar y eliminar.
+- **Compras:** comprar productos.
 
 ---
 
